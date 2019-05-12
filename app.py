@@ -74,6 +74,7 @@ def stations():
         # Return JSON List of Stations from the Dataset
         return jsonify(station_list)
 
+# Temperature Observations Route
 @app.route("/api/v1.0/tobs")
 def tobs():
         # Query for the Dates and Temperature Observations from a Year from the Last Data Point
