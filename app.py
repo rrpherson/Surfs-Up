@@ -92,7 +92,7 @@ def precipitation():
 # Station Route
 @app.route("/api/v1.0/stations")
 def stations():
-        # Return a JSON List of Stations From the Dataset
+        # Design a Query to List All of the Stations Available in the Dataset
         stations = session.query(Station.station, Station.name).all()
         # Convert List of Tuples Into Normal List
         station_list = list(stations)
@@ -102,7 +102,7 @@ def stations():
 # Temperature Observations Route
 @app.route("/api/v1.0/tobs")
 def tobs():
-        # Query for the Dates and Temperature Observations from a Year from the Last Data Point
+        # Design a Query for the Dates and Temperature Observations from a Year from the Last Data Point
         last_year = dt.date(2017,8,23) - dt.timedelta(days=365)
         # Design a Query to Retrieve the Last 12 Months of Precipitation Data Selecting Only the `date` and `prcp` Values
         tobs_data = session.query(Measurement.date, Measurement.tobs).\
@@ -116,24 +116,26 @@ def tobs():
 # Start Day Route
 @app.route("/api/v1.0/<start>")
 def start_day(start):
+        # Design a Query to Retrieve Min, Ave, and Max Temperatures Starting on a Specific Day
         start_day = session.query(Measurement.date, func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
                 filter(Measurement.date >= start).\
                 group_by(Measurement.date).all()
         # Convert List of Tuples Into Normal List
         start_day_list = list(start_day)
-        # Return JSON List of Min Temp, Avg Temp and Max Temp for a Given Start Range
+        # Return JSON List of Min, Avg, and Max Temperatures for the Starting Day
         return jsonify(start_day_list)
 
 # Start-End Day Route
 @app.route("/api/v1.0/<start>/<end>")
 def start_end_day(start, end):
+        # Design a Query to Retrieve Min, Ave, and Max Temperatures for a Specific Start-End Range
         start_end_day = session.query(Measurement.date, func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
                 filter(Measurement.date >= start).\
                 filter(Measurement.date <= end).\
                 group_by(Measurement.date).all()
         # Convert List of Tuples Into Normal List
         start_end_day_list = list(start_end_day)
-        # Return JSON List of Min Temp, Avg Temp and Max Temp for a Given Start-End Range
+        # Return JSON List of Min, Avg, and Max Temperatures for the Given Start-End Range
         return jsonify(start_end_day_list)
 
 # Define Main Behavior
