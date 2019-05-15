@@ -40,15 +40,40 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     """List all available api routes."""
-    return (
-        f"Welcome to the Hawaii Climate App!<br/>"
-        f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation<br/>"
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/2017-05-19<br/>"
-        f"/api/v1.0/2017-05-19/2017-05-31"
-    )
+    return """
+<html lang="en-us">
+<head>
+   <meta charset="UTF-8">
+   <title>Hawaii Climate App</title>
+</head>
+<body>
+   <h1>Welcome to the Hawaii Climate App!</h1>
+   <img src="https://tse1.mm.bing.net/th?id=OIP.wPYqpbSwIthiCJG9SjgWfwHaEL&pid=Api&P=0&w=304&h=172" alt="Hawaii Weather"/>
+   <br>
+   <h2>Informational Links:</h2>
+   <p>Precipitation Analysis:</p>
+   <ul>
+      <li><a href="/api/v1.0/precipitation">/api/v1.0/precipitation</a></li>
+   </ul>
+   <p>Station Analysis:</p>
+   <ul>
+      <li><a href="/api/v1.0/stations">/api/v1.0/stations</a></li>
+   </ul>
+   <p>Temperature Analysis:</p>
+   <ul>
+      <li><a href="/api/v1.0/tobs">/api/v1.0/tobs</a></li>
+   </ul>
+   <p>Start Day Analysis:</p>
+   <ul>
+      <li><a href="/api/v1.0/2017-05-19">/api/v1.0/2017-05-19</a></li>
+   </ul>
+   <p>Start & End Day Analysis:</p>
+   <ul>
+      <li><a href="/api/v1.0/2017-05-19/2017-05-31">/api/v1.0/2017-05-19/2017-05-31</a></li>
+   </ul>
+</body>
+</html>
+"""
 
 # Precipitation Route
 @app.route("/api/v1.0/precipitation")
